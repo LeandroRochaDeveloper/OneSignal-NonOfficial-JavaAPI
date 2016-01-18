@@ -50,7 +50,9 @@ public class ApiPlayer {
      * @return
      */
     public ViewResults getPlayersDevices(String app_id, int limit, int offset) {
-        String parameters = "?app_id=" + app_id + "&limit=" + limit + "&offset=" + offset;
+        String parameters = "?app_id=" + app_id + "";
+        parameters += (limit > 0 && limit < 50) ? "&limit=" + limit : "";
+        parameters += (offset > 0) ? "&offset=" + offset : "";
         String resp = new ServerBridge(apiKey).get(LOCATION + parameters);
         ViewResults view = null;            
         try {            

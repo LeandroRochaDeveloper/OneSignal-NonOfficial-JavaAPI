@@ -18,7 +18,7 @@ public class Application {
     private String created_at;
     private String gcm_key;
     private String chrome_key;
-    private String apns_env;
+    private Ambiente apns_env;
     private String id;
     private String apns_certificates;
     private String safari_apns_cetificate;
@@ -27,6 +27,9 @@ public class Application {
     private String site_name;
     private String basic_auth_key;
     private String apns_p12;
+    private String apns_p12_password;
+    private String safari_apns_p12;
+    private String safari_apns_p12_password;
     
     public Application() {
     }
@@ -35,8 +38,9 @@ public class Application {
         return name;
     }
 
-    public void setName(String name) {
+    public Application setName(String name) {
         this.name = name;
+        return this;
     }
 
     public long getPlayers() {
@@ -75,24 +79,27 @@ public class Application {
         return gcm_key;
     }
 
-    public void setGcm_key(String gcm_key) {
+    public Application setGcm_key(String gcm_key) {
         this.gcm_key = gcm_key;
+        return this;
     }
 
     public String getChrome_key() {
         return chrome_key;
     }
 
-    public void setChrome_key(String chrome_key) {
+    public Application setChrome_key(String chrome_key) {
         this.chrome_key = chrome_key;
+        return this;
     }
 
     public String getApns_env() {
-        return apns_env;
+        return apns_env.name();
     }
 
-    public void setApns_env(String apns_env) {
+    public Application setApns_env(Ambiente apns_env) {
         this.apns_env = apns_env;
+        return this;
     }
 
     public String getId() {
@@ -139,8 +146,9 @@ public class Application {
         return site_name;
     }
 
-    public void setSite_name(String site_name) {
+    public Application setSite_name(String site_name) {
         this.site_name = site_name;
+        return this;
     }
 
     public String getBasic_auth_key() {
@@ -155,7 +163,37 @@ public class Application {
         return apns_p12;
     }
 
-    public void setApns_p12(String apns_p12) {
+    public Application setApns_p12(String apns_p12) {
         this.apns_p12 = apns_p12;
+        return this;
     }
+
+    public String getApns_p12_password() {
+        return apns_p12_password;
+    }
+
+    public Application setApns_p12_password(String apns_p12_password) {
+        this.apns_p12_password = apns_p12_password;
+        return this;
+    }
+
+    public String getSafari_apns_p12() {
+        return safari_apns_p12;
+    }
+
+    public Application setSafari_apns_p12(String safari_apns_p12) {
+        this.safari_apns_p12 = safari_apns_p12;
+        return this;
+    }
+
+    public String getSafari_apns_p12_password() {
+        return safari_apns_p12_password;
+    }
+
+    public Application setSafari_apns_p12_password(String safari_apns_p12_password) {
+        this.safari_apns_p12_password = safari_apns_p12_password;
+        return this;
+    }
+    
+    
 }

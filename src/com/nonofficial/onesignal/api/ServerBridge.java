@@ -114,16 +114,26 @@ public class ServerBridge {
         return jsonRespone;
     }
 
-    protected String put(String path) {
+    protected String put(String path, String json) {
         String jsonRespone = "";// Resposta REST
         try {
 
             URL url = new URL(DEFAULT_BASE_URL + path);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            
+            con.setDoOutput(true);
 
             con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             con.setRequestProperty("Authorization", "Basic " + apiKey);
             con.setRequestMethod("PUT");
+            
+            if (json != null) {
+                byte[] sendBytes = json.getBytes("UTF-8");
+                con.setFixedLengthStreamingMode(sendBytes.length);
+
+                OutputStream outputStream = con.getOutputStream();
+                outputStream.write(sendBytes);
+            }
 
             int httpResponse = con.getResponseCode();
 

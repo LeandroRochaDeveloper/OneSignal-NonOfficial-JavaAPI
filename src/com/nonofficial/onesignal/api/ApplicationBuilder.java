@@ -22,7 +22,7 @@ public class ApplicationBuilder {
      * @param safari_site_origin The hostname to your website including http(s)://
      * @return
      */
-    private String apns_env;
+    private Ambiente apns_env;
     private String apns_p12;
     private String apns_p12_password;
     private String gcm_key;
@@ -31,15 +31,25 @@ public class ApplicationBuilder {
     private String safari_apns_p12_password;
     private String site_name;
     private String safari_site_origin;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public ApplicationBuilder setName(String name) {
+        this.name = name;
+        return this;
+    }
     
     public ApplicationBuilder() {
     }
 
     public String getApns_env() {
-        return apns_env;
+        return apns_env.name();
     }
 
-    public ApplicationBuilder setApns_env(String apns_env) {
+    public ApplicationBuilder setApns_env(Ambiente apns_env) {
         this.apns_env = apns_env;
         return this;
     }

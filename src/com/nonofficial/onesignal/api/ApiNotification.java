@@ -27,12 +27,9 @@ public class ApiNotification {
     }
 
     /**
-     * This method can be used to send push notifications to programmatically
-     * send notifications to users of your app. At least one targeting
-     * parameters must be specified. Some targeting parameters are not
-     * compatible with each other. Here are the groups of possible targeting
-     * parameters. If a targeting parameter from one group is used, then
-     * targeting parameters from other groups must not be used
+     * This method can be used to send push notifications to programmatically send notifications to users of your app. At least one targeting
+     * parameters must be specified. Some targeting parameters are notompatible with each other. Here are the groups of possible targeting
+     * parameters. If a targeting parameter from one group is used, then targeting parameters from other groups must not be used
      *
      * @param notification
      * @return
@@ -69,14 +66,17 @@ public class ApiNotification {
 
     /**
      *
-     * @param app_id
-     * @param limit
-     * @param offset
+     * @param app_id The app ID that you want to view notifications from
+     * @param limit How many notifications to return. Max is 50. Default is 50
+     * @param offset Result offset. Default is 0. Results are sorted by queued_at in descending order. queued_at is the unixtime representation of the time that the notification was queued
      * @return
      */
     public ViewResults getNotifications(String app_id, int limit, int offset) {
-        String parameters = "?app_id=" + app_id + "&limit=" + limit + "&offset=" + offset;
+        String parameters = "?app_id=" + app_id + "";
+        parameters += (limit > 0 && limit < 50) ? "&limit=" + limit : "";
+        parameters += (offset > 0) ? "&offset=" + offset : "";
         String resp = new ServerBridge(apiKey).get(LOCATION + parameters);
+        System.out.println(resp);
         ViewResults view = null;
         try {
             view = gson.fromJson(resp, ViewResults.class);
@@ -87,7 +87,7 @@ public class ApiNotification {
     }
 
     public boolean setOpenned(String id) {
-        String resp = new ServerBridge(apiKey).put(LOCATION + "/" + id + "?opened=true");
+        String resp = new ServerBridge(apiKey).put(LOCATION + "/" + id + "?opened=true", null);
         Response response = gson.fromJson(resp, Response.class);
         if (response.isSuccess()) {
             return true;
@@ -100,7 +100,7 @@ public class ApiNotification {
     }
 
     public boolean deleteNotification(String id, String app_id) {
-        if(id == null || app_id == null) {
+        if (id == null || app_id == null) {
             System.out.println("Can't be null");
             return false;
         }

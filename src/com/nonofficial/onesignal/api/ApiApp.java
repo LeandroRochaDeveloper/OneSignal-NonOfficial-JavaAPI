@@ -7,6 +7,7 @@ package com.nonofficial.onesignal.api;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,33 +58,42 @@ public class ApiApp {
         return app;
     }
     
-    public Application createApp(ApplicationBuilder builder) {
+    public Application createApp(Application builder) {
         Application app = null;
         String json = gson.toJson(builder);
         String resp = new ServerBridge(apiKey).post(LOCATION, json);
-        try {
+        System.out.println(resp);
+        try {            
             app = gson.fromJson(resp, Application.class);
+            System.out.println(app.getName());
+            for (Field field : app.getClass().getDeclaredFields()) {
+                field.setAccessible(true); // You might want to set modifier to public first.
+                Object value = field.get(app); 
+                if (value != null) {
+                    System.out.println(field.getName() + "=" + value);
+                }
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
         return app;
     }
     
-    /**
-     * This method can be used to update the name, APNS certificate, and GCM auth key of an existing OneSignal app.
-     * 
-     * @param app 
-     * @return 
-     */
-    public Application createApp(Application app) {
-        String parameters = "?";
-        parameters += (app.getName() != null) ? "name=" + app.getName() : "";
-        parameters += (app.getApns_p12() != null) ? "apns_p12=" + app.getApns_p12() : "";
-        parameters += (app.getApns_env() != null) ? "apns_env=" + app.getApns_env() : "";
-        parameters += (app.getGcm_key() != null) ? "gcm_key=" + app.getGcm_key() : "";
-        String resp = new ServerBridge(apiKey).put(LOCATION + parameters);
-        try {
+    public Application updateApp(Application builder) {
+        Application app = null;
+        String json = gson.toJson(builder);
+        String resp = new ServerBridge(apiKey).put(LOCATION + "/" + builder.getId(), json);
+        System.out.println(resp);
+        try {            
             app = gson.fromJson(resp, Application.class);
+            System.out.println(app.getName());
+            for (Field field : app.getClass().getDeclaredFields()) {
+                field.setAccessible(true); // You might want to set modifier to public first.
+                Object value = field.get(app); 
+                if (value != null) {
+                    System.out.println(field.getName() + "=" + value);
+                }
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
