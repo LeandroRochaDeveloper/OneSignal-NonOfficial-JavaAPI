@@ -21,9 +21,9 @@ import java.util.Map;
  */
 public class MainTeste {
     
-    private final static String USER_AUTH_KEY = "NmMxZTBhNGItNGFmOS00YjVkLWI2NDQtZDk1YzQ2ZDk2MDMx";
-    private final static String REST_KEY = "YTRjYzk0NTAtY2ViYi00ZjdjLWFkZjUtNDc3NzQ5N2NkZDZj";
-    private final static String APP_ID = "b284ccb3-fed5-4b19-a1af-fc3840482fbc";
+    private final static String USER_AUTH_KEY = "Z";
+    private final static String REST_KEY = "Y";
+    private final static String APP_ID = "X";
 
     /**
      * @param args the command line arguments
