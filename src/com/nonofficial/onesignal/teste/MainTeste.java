@@ -26,7 +26,6 @@ public class MainTeste {
     private final static String USER_AUTH_KEY = "X";
     private final static String REST_KEY = "Y";
     private final static String APP_ID = "Z";
-
     /**
      * @param args the command line arguments
      */
