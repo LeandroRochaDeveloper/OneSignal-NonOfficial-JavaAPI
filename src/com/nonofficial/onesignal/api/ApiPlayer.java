@@ -70,7 +70,7 @@ public class ApiPlayer {
      * 
      * @param app_id The app ID that you want to export devices from
     */
-    public String getCSVFile(String app_id) {
+    public String getCSVLocation(String app_id) {
         String resp = new ServerBridge(apiKey).post(LOCATION + "/csv_export?app_id=" + app_id, null);
         System.out.println(resp);
         Response response = null;
@@ -78,6 +78,51 @@ public class ApiPlayer {
             response = gson.fromJson(resp, Response.class);
             if (response.getCsv_file_url() != null) {
                 return response.getCsv_file_url();
+            } else {
+                for (String i : response.getErrors()) {
+                    System.err.println(i);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public void getCSVFile(String url, String location) {
+        if(!new ServerBridge(apiKey).download(url, location)){
+            System.out.println("Erro no Download");
+        }
+    }
+    
+    /**
+     * Increment the device's total session length
+     * 
+     * (Working)
+     * 
+     */
+    public void onFocus(String id, int active_time) {
+        // https://onesignal.com/api/v1/players/:id/on_focus
+        String json = "{'state': 'ping','active_time': " + 1 + "}";
+        String resp = new ServerBridge(apiKey).post(LOCATION + "/" + id + "/on_focus", json);
+        System.err.println(resp);
+    }
+    
+    /**
+     * Call on new device session in your app
+     * 
+     * 
+     */
+    public Response onSession(Device device) {
+        // https://onesignal.com/api/v1/players/:id/on_session
+        String json = gson.toJson(device);        
+        System.out.println(json);
+        String resp = new ServerBridge(apiKey).post(LOCATION + "/" + device.getAd_id() + "/on_session", json);
+        Response response = null;
+        try {
+            response = gson.fromJson(resp, Response.class);
+            if (response.isSuccess()) {
+                return response;
             } else {
                 for (String i : response.getErrors()) {
                     System.err.println(i);

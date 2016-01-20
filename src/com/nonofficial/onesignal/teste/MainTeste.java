@@ -10,8 +10,10 @@ import com.nonofficial.onesignal.api.ApiApp;
 import com.nonofficial.onesignal.api.ApiNotification;
 import com.nonofficial.onesignal.api.ApiPlayer;
 import com.nonofficial.onesignal.api.Application;
+import com.nonofficial.onesignal.api.Device;
 import com.nonofficial.onesignal.api.Notification;
 import com.nonofficial.onesignal.api.Tag;
+import com.nonofficial.onesignal.api.ViewResults;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,9 +23,9 @@ import java.util.Map;
  */
 public class MainTeste {
     
-    private final static String USER_AUTH_KEY = "NmMxZTBhNGItNGFmOS00YjVkLWI2NDQtZDk1YzQ2ZDk2MDMx";
-    private final static String REST_KEY = "YTRjYzk0NTAtY2ViYi00ZjdjLWFkZjUtNDc3NzQ5N2NkZDZj";
-    private final static String APP_ID = "b284ccb3-fed5-4b19-a1af-fc3840482fbc";
+    private final static String USER_AUTH_KEY = "X";
+    private final static String REST_KEY = "Y";
+    private final static String APP_ID = "Z";
 
     /**
      * @param args the command line arguments
@@ -39,20 +41,24 @@ public class MainTeste {
         contents.put("es", "Spanish Message");
         Tag[] tags = {new Tag("myspecial", "=", "app", null)};
         
+        ViewResults view = player.getPlayersDevices(APP_ID, 30, 0);
+        Device dev = view.getPlayers().get(1);
+        System.err.println(dev.getAd_id());
+        dev.setApp_id(APP_ID);
+        
         Notification notification = new Notification()
                 .setContents(contents)
                 .setTags(tags) 
                 .setApp_id(APP_ID)
                 .setAndroid(true)
                 ;
+        // noti.sendNotification(notification);
                 
         Application builder = new Application()
                 .setApns_env(Ambiente.sandbox)
-                .setGcm_key("AIzaSyDljTUNLl7550C2By3NNalLTdGffhh9p5k")
                 .setName("Teste de criacao")
                 ;
         
-        noti.getNotifications(APP_ID, 5, 1);
     }
     
 }
