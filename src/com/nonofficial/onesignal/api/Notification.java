@@ -40,14 +40,14 @@ public class Notification {
     private String[] include_chrome_reg_ids;
     private String[] include_chrome_web_reg_ids;
     private String[] app_ids;
-    private Tag[] tags;
+    private Object[] tags;
     private String id;
     private long succesful;
     private long failed;
     private long converted;
     private long remaining;
     private long queued_at;
-    private long send_after;
+    private String send_after;
     private boolean canceled;
     private String ios_badgeType;
     private int ios_badgeCount;
@@ -87,7 +87,7 @@ public class Notification {
         contents.put("es", "Spanish Message");
         isAndroid = true;
         //app_id = "b284ccb3-fed5-4b19-a1af-fc3840482fbc";
-        tags = new Tag[1];// {"key": "level", "relation": ">", "value": "10"
+        tags = new Object[1];// {"key": "level", "relation": ">", "value": "10"
         tags[0] = new Tag("myspecial", "=", "app", null);
     }
     
@@ -250,11 +250,11 @@ public class Notification {
         return this;
     }
 
-    public long getSend_after() {
+    public String getSend_after() {
         return send_after;
     }
 
-    public Notification setSend_after(long send_after) {
+    public Notification setSend_after(String send_after) {
         this.send_after = send_after;
         return this;
     }
@@ -637,11 +637,11 @@ public class Notification {
         return this;
     }
 
-    public Tag[] getTags() {
+    public Object[] getTags() {
         return tags;
     }
 
-    public Notification setTags(Tag[] tags) {
+    public Notification setTags(Object[] tags) {
         this.tags = tags;
         return this;
     }
